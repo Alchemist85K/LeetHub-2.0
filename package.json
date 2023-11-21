@@ -1,8 +1,8 @@
 {
   "name": "LeetHub Forked",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "private": true,
-  "description": "Automatically integrate your code with LeetCode and GitHub",
+  "description": "Sync LeetCode to GitHub",
   "scripts": {
     "setup": "npm i",
     "format": "prettier --write **/*.{js,jsx,ts,tsx,css,html}",
