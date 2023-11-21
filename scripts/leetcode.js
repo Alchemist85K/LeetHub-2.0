@@ -23,7 +23,7 @@ const languages = {
   Scala: '.scala',
   Swift: '.swift',
   TypeScript: '.ts',
-}
+};
 
 /* Commit messages */
 const readmeMsg = 'Create README - LeetHub';
@@ -157,12 +157,12 @@ const update = (
     .then(existingContent =>
       shouldPreprendDiscussionPosts
         ? // https://web.archive.org/web/20190623091645/https://monsur.hossa.in/2012/07/20/utf-8-in-javascript.html
-        // In order to preserve mutation of the data, we have to encode it, which is usually done in base64.
-        // But btoa only accepts ASCII 7 bit chars (0-127) while Javascript uses 16-bit minimum chars (0-65535).
-        // EncodeURIComponent converts the Unicode Points UTF-8 bits to hex UTF-8.
-        // Unescape converts percent-encoded hex values into regular ASCII (optional; it shrinks string size).
-        // btoa converts ASCII to base64.
-        btoa(unescape(encodeURIComponent(addition + existingContent)))
+          // In order to preserve mutation of the data, we have to encode it, which is usually done in base64.
+          // But btoa only accepts ASCII 7 bit chars (0-127) while Javascript uses 16-bit minimum chars (0-65535).
+          // EncodeURIComponent converts the Unicode Points UTF-8 bits to hex UTF-8.
+          // Unescape converts percent-encoded hex values into regular ASCII (optional; it shrinks string size).
+          // btoa converts ASCII to base64.
+          btoa(unescape(encodeURIComponent(addition + existingContent)))
         : btoa(unescape(encodeURIComponent(existingContent))),
     )
     .then(newContent =>
@@ -338,7 +338,7 @@ function LeetCodeV1() {
   this.progressSpinnerElementClass = 'leethub_progress';
   this.injectSpinnerStyle();
 }
-LeetCodeV1.prototype.init = async function () { };
+LeetCodeV1.prototype.init = async function () {};
 /* Function for finding and parsing the full code. */
 /* - At first find the submission details url. */
 /* - Then send a request for the details page. */
@@ -740,7 +740,7 @@ LeetCodeV2.prototype.getLanguageExtension = function () {
 
   return languages[lang];
 };
-LeetCodeV2.prototype.getNotesIfAny = function () { };
+LeetCodeV2.prototype.getNotesIfAny = function () {};
 LeetCodeV2.prototype.getProblemNameSlug = function () {
   const slugTitle = this.submissionData.question.titleSlug;
   const qNum = this.submissionData.question.questionId;
@@ -771,7 +771,7 @@ LeetCodeV2.prototype.parseStats = function () {
   }
 
   // Doesn't work unless we wait for page to finish loading.
-  setTimeout(() => { }, 1000);
+  setTimeout(() => {}, 1000);
   const probStats = document.getElementsByClassName('flex w-full pb-4')[0].innerText.split('\n');
   if (!checkElem(probStats)) {
     return null;
@@ -925,7 +925,13 @@ chrome.storage.local.get('isSync', data => {
 });
 
 let leetCode;
-const isLeetCodeV2 = document.getElementById('chakra-script') != null;
+const isLeetCodeV2 = () => {
+  const rootElementNextApp = !!document.querySelector('#__next');
+  const bodyContainsChakraUILight = !!document.querySelector('body.chakra-ui-light');
+  const bodyContainsChakraUIDark = !!document.querySelector('body.chakra-ui-dark');
+  return rootElementNextApp || bodyContainsChakraUIDark || bodyContainsChakraUILight;
+};
+
 if (!isLeetCodeV2) {
   leetCode = new LeetCodeV1();
 } else {
@@ -1028,7 +1034,7 @@ const loader = () => {
 
 function handleCtrlEnter(event) {
   if (event.key === 'Enter' && event.ctrlKey) {
-    loader()
+    loader();
   }
 }
 
@@ -1041,6 +1047,6 @@ setTimeout(() => {
   const submitBtn = !isLeetCodeV2 ? v1SubmitBtn : v2SubmitBtn;
   submitBtn.addEventListener('click', loader);
 
-  const textarea = document.getElementsByTagName('textarea')[0]
-  textarea.addEventListener('keydown', handleCtrlEnter)
+  const textarea = document.getElementsByTagName('textarea')[0];
+  textarea.addEventListener('keydown', handleCtrlEnter);
 }, 2000);
